@@ -1,0 +1,23 @@
+{
+  "name": "nodeexpressapintier",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "msnodesqlv8": "^3.0.1",
+    "mssql": "^9.1.1",
+    "nodemon": "^2.0.20",
+    "promisify": "^0.0.3",
+    "redis": "^4.6.5",
+    "util": "^0.12.5"
+  }
+}
