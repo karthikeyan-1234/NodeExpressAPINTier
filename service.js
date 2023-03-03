@@ -3,7 +3,7 @@ const redis = require('./redis');
 
 class CustomerService {
   constructor() {
-    this.customerRepository = new GenericRepository('Customers');
+    this.customerRepository = new GenericRepository('Customers','BusinessDB');
   }
 
   async getAllcustomers() {

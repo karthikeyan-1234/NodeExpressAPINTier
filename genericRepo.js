@@ -1,13 +1,14 @@
 const sql = require('mssql/msnodesqlv8');
 
 class GenericRepository {
-  constructor(tableName) {
+  constructor(tableName,dbName) {
     this.tableName = tableName;
+    this.dbName = dbName;
 
     // create a new SQL Server connection pool
     this.pool = new sql.ConnectionPool({
         server: '(localdb)\\MyInstance',
-        database:  'BusinessDB',
+        database:  dbName,//'BusinessDB',
         options: {
             trustedconnection:  true,
             enableArithAbort:  true
