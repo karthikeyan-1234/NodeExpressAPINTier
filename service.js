@@ -1,12 +1,12 @@
 const GenericRepository = require('./genericRepo');
 const redis = require('./redis');
 
-class EmployeeService {
+class CustomerService {
   constructor() {
-    this.employeeRepository = new GenericRepository('Customers');
+    this.customerRepository = new GenericRepository('Customers');
   }
 
-  async getAllEmployees() {
+  async getAllcustomers() {
 
     redis.GET('Customers').then((ret) => {
         console.log("From redis");
@@ -14,28 +14,28 @@ class EmployeeService {
         return ret;
     })
 
-    var employees = await this.employeeRepository.getAll();
+    var customers = await this.customerRepository.getAll();
 
-    redis.SET('Customers',JSON.stringify(employees));
-    return employees;
+    redis.SET('Customers',JSON.stringify(customers));
+    return customers;
 
   }
 
-  async getEmployeeById(id) {
-    return await this.employeeRepository.getById(id);
+  async getcustomerById(id) {
+    return await this.customerRepository.getById(id);
   }
 
-  async createEmployee(employee) {
-    return await this.employeeRepository.create(employee);
+  async createcustomer(customer) {
+    return await this.customerRepository.create(customer);
   }
 
-  async updateEmployee(id, employee) {
-    return await this.employeeRepository.update(id, employee);
+  async updatecustomer(id, customer) {
+    return await this.customerRepository.update(id, customer);
   }
 
-  async deleteEmployee(id) {
-    return await this.employeeRepository.delete(id);
+  async deletecustomer(id) {
+    return await this.customerRepository.delete(id);
   }
 }
 
-module.exports = EmployeeService;
+module.exports = CustomerService;
