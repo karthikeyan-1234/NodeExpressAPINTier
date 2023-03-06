@@ -1,27 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require("cors");
-const CustomerService = require('./service');
 const logger = require('./logger');
-
+const io = require('./socket');
 const app = express();
 const PORT = 5000;
+const CustomerService = require('./service');
 
-const server = require('http').createServer(app);
-const io = require('socket.io')(server,{cors:{origin:'*'}});
 
-server.listen(3001,() => {
+io.listen(3001,() => {
   console.log("IO server running")
-})
-
-io.on("connection",(socket) => {
-  console.log("User connected : " + socket.id);
-
-  socket.on("message",(data)=>{
-    console.log("received data. Now sending back data");
-    socket.broadcast.emit('message',data);
-  })
-
 })
 
 const customerService = new CustomerService();

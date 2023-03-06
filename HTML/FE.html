@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.min.js" integrity="sha512-AI5A3zIoeRSEEX9z3Vyir8NqSMC1pY7r5h2cE+9J6FLsoEmSSGLFaqMQw8SWvoONXogkfFrkQiJfLeHLz3+HOg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
     <body>
 
-        <input type="text" class="message" />
+        Msg : <input type="text" class="message" />
+        User: <input type="text" id="toUserId" class="user" />
         <button onclick="sendMessage()">Send Message</button>
-        <h1>MESSAGE WILL APEAR HERE !!</h1>
+        <div id="msgs"></div>
+        Current User: <input id="userid"/>
 
         <script>
+
+            $(function() { var user = prompt("Enter user name"); $('#userid').val(user); });
+
             const socket = io('http://localhost:3001')
 
             socket.on('connection',() => {
@@ -18,13 +24,16 @@
 
             socket.on('message',(data) => {
                 console.log("Received Message");
-                document.querySelector('h1').innerHTML = data;
+                console.log(data);
+                console.log($('#userid').val())
+
+                if(data.user == $('#userid').val())
+                    $('#msgs').append('<div>' + data.fromUser + ': ' + data.message + '</div>');
             })
 
             const sendMessage = () => {
                 const messageInput = document.querySelector('.message');
-                const message = messageInput.value;
-                socket.emit('message',message);
+                socket.emit('message',{message: messageInput.value, user: $('#toUserId').val(), fromUser: $('#userid').val()});
             }
         </script>
 
