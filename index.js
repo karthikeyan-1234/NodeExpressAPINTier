@@ -2,10 +2,26 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require("cors");
 const CustomerService = require('./service');
+const logger = require('./logger');
 
 const app = express();
 const PORT = 5000;
 
+const server = require('http').createServer(app);
+const io = require('socket.io')(server,{cors:{origin:'*'}});
+
+server.listen(3001,() => {
+  console.log("IO server running")
+})
+
+io.on("connection",(socket) => {
+  console.log("User connected : " + socket.id);
+
+  socket.on("message",(data)=>{
+    console.log("data");
+  })
+
+})
 
 const customerService = new CustomerService();
 
@@ -26,6 +42,7 @@ app.get('/',async (req,res)=>{
 app.get('/api/customers', async (req, res) => {
     try {
       const customers = await customerService.getAllcustomers();
+      logger.info("Customers shown");
       res.json(customers);
     } catch (err) {
       console.error(err);

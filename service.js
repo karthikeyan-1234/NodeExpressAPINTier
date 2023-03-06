@@ -1,5 +1,6 @@
 const GenericRepository = require('./genericRepo');
 const redis = require('./redis');
+const logger = require('./logger');
 
 class CustomerService {
   constructor() {
@@ -9,8 +10,8 @@ class CustomerService {
   async getAllcustomers() {
 
     redis.GET('Customers').then((ret) => {
-        console.log("From redis");
-        console.log(ret);
+        //logger.fatal("From redis");
+        logger.info(ret);
         return ret;
     })
 
