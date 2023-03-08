@@ -1,5 +1,6 @@
 const sql = require('mssql/msnodesqlv8');
 
+
 class GenericRepository {
   constructor(tableName,dbName) {
     this.tableName = tableName;
