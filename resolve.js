@@ -1,6 +1,5 @@
 const CustomerService = require('./service');
 
-
 const awilix = require('awilix');
 const { createContainer, asClass } = awilix;
 const container = createContainer();
